@@ -13,10 +13,13 @@ WORKDIR /ssd
 RUN git clone https://github.com/weiliu89/caffe -b ssd --depth=1 caffe
 RUN git clone https://github.com/osddeitf/MobileNet-SSD --depth=1 mobilenet
 
-WORKDIR caffe
+WORKDIR /ssd/caffe
 COPY Makefile.config .
 RUN make clean
 RUN make -j
+RUN make py
 
+# Set CAFFE_HOME and PYTHONPATH for caffe
 COPY .bashrc /root
 
+WORKDIR /ssd
